@@ -46,8 +46,8 @@ $app->middleware([
 $app->routeMiddleware([
     'auth.jwt'          => Tymon\JWTAuth\Http\Middleware\Authenticate::class,
     'throttle.register' => App\Http\Middleware\ThrottleRegister::class,
+    'role'              => App\Http\Middleware\RoleMiddleware::class,
 ]);
-
 /*
 |--------------------------------------------------------------------------
 | Register Container Bindings

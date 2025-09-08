@@ -34,5 +34,20 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 
     $router->group(['middleware' => 'auth.jwt'], function () use ($router) {
         $router->get('me', 'AuthController@me');
+
+        //stub home
+        $router->get('progress/summary',            'StubApiController@progressSummary');
+        $router->get('progress/daily',              'StubApiController@progressDaily');
+        $router->get('progress/language-distribution','StubApiController@languageDistribution');
+        $router->get('tests/recommended',           'StubApiController@testsRecommended');
+        
+        //tests
+        $router->get('tests/{id}', 'TestController@getTest');
+        $router->post('tests/{id}/evaluate',   'TestController@evaluateCode');
+        $router->post('tests/{id}/submit', 'TestController@submitTest');
+        $router->get('tests', 'TestController@index');
+
+        //admin
+        $router->post('admin/tests', ['middleware' => 'role:admin', 'uses' => 'AdminTestsController@store']);
     });
 });

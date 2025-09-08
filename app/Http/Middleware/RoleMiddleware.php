@@ -1,0 +1,17 @@
+<?php
+namespace App\Http\Middleware;
+
+use Closure;
+use Illuminate\Http\Request;
+
+class RoleMiddleware
+{
+    public function handle(Request $request, Closure $next, string $role)
+    {
+        $user = auth()->user();
+        if (!$user || $user->role !== $role) {
+            return response()->json(['message' => 'Forbidden'], 403);
+        }
+        return $next($request);
+    }
+}
